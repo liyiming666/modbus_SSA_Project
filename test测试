@@ -1,0 +1,8 @@
+#define DATA_BITS		    2
+#define STRUCT_DATA_SIZE    6
+#define HEARTBEAT_SIZE      6
+#define REGIST_SIZE         22
+#define REGIST_HEADER_SIZE  6
+#define HEADER_LEN          11
+#define CRC_LEN             2
+

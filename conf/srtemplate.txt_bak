@@ -1,0 +1,62 @@
+dtu_agent_73
+
+10,100,GET,/identity/externalIds/c8y_Serial/%%,,application/json,%%,STRING,
+
+10,101,POST,/inventory/managedObjects,application/json,application/json,%%,STRING,"{""name"":""%%"",""type"":""c8y_hello"",""com_cumulocity_model_Agent"":{}}"
+
+10,102,POST,/identity/globalIds/%%/externalIds,application/json,,%%,STRING STRING,"{""externalId"":""%%"",""type"":""c8y_Serial""}"
+
+10,104,POST,/alarm/alarms,application/json,,%%,NOW UNSIGNED STRING STRING STRING,"{""time"":""%%"",""source"":{""id"":""%%""},""type"":""%%"",""status"":""ACTIVE"",""severity"":""%%"",""text"":""%%""}"
+
+10,105,POST,/event/events,application/json,,%%,NOW STRING STRING STRING,"{""time"":""%%"",""source"":{""id"":""%%""},""type"":""%%"",""text"":""%%""}"
+
+10,107,PUT,/inventory/managedObjects/%%,application/json,application/json,%%,STRING,"{}"
+
+10,110,PUT,/inventory/managedObjects/%%,application/json,,%%,UNSIGNED STRING ,"{""c8y_SupportedOperations"":[%%]}"
+
+10,111,PUT,/devicecontrol/operations/%%,application/json,,%%,UNSIGNED STRING,"{""status"":""%%""}"
+
+10,112,PUT,/devicecontrol/operations/%%,application/json,,%%,UNSIGNED STRING,"{""status"":""FAILED"",""failureReason"":""%%""}"
+
+10,132,POST,/inventory/managedObjects/%%/childDevices,application/json,,%%,UNSIGNED UNSIGNED,"{""managedObject"":{""id"":""%%""}}"
+
+10,133,POST,/inventory/managedObjects,application/json,application/json,%%,STRING STRING,"{""name"":""%%"",""type"":""%%"",""c8y_IsDevice"":{}}"
+
+10,134,PUT,/inventory/managedObjects/%%,application/json,,%%,STRING UNSIGNED STRING STRING UNSIGNED STRING,"{""c8y_RequiredAvailability"":{""responseInterval"":%%},""c8y_Hardware"":{""model"":""%%"",""serialNumber"":""%%"",""revision"":%%},""c8y_Configuration"":{""config"":""%%""}}"
+
+10,200,POST,/measurement/measurements,application/json,,%%,NOW UNSIGNED STRING STRING STRING NUMBER STRING,"{""time"":""%%"",""source"":{""id"":""%%""},""type"":""%%"",""%%"":{""%%"":{""value"":%%,""unit"":""%%""}}}"
+
+10,201,POST,/measurement/measurements,application/json,,%%,NOW UNSIGNED STRING STRING STRING NUMBER STRING STRING NUMBER STRING,"{""time"":""%%"",""source"":{""id"":""%%""},""type"":""%%"",""%%"":{""%%"":{""value"":%%,""unit"":""%%""},""%%"":{""value"":%%,""unit"":""%%""}}}"
+
+10,202,POST,/measurement/measurements,application/json,,%%,NOW UNSIGNED STRING STRING STRING NUMBER STRING STRING NUMBER STRING STRING NUMBER STRING,"{""time"":""%%"",""source"":{""id"":""%%""},""type"":""%%"",""%%"":{""%%"":{""value"":%%,""unit"":""%%""},""%%"":{""value"":%%,""unit"":""%%""},""%%"":{""value"":%%,""unit"":""%%""}}}"
+
+10,203,POST,/measurement/measurements,application/json,,%%,NOW UNSIGNED STRING STRING STRING NUMBER STRING STRING NUMBER STRING STRING NUMBER STRING STRING NUMBER STRING,"{""time"":""%%"",""source"":{""id"":""%%""},""type"":""%%"",""%%"":{""%%"":{""value"":%%,""unit"":""%%""},""%%"":{""value"":%%,""unit"":""%%""},""%%"":{""value"":%%,""unit"":""%%""},""%%"":{""value"":%%,""unit"":""%%""}}}"
+
+10,204,PUT,/inventory/managedObjects/%%,application/json,,%%,UNSIGNED STRING NUMBER STRING NUMBER STRING NUMBER STRING NUMBER STRING NUMBER,"{""Calibration"":{""%%"":%%,""%%"":%%,""%%"":%%,""%%"":%%,""%%"":%%}}"
+
+10,205,PUT,/inventory/managedObjects/%%,application/json,,%%,UNSIGNED STRING STRING STRING STRING STRING STRING STRING STRING STRING STRING STRING STRING STRING STRING STRING STRING NUMBER,"{""Threshold"":{""c8y_电压有效值"":{""%%"":""%%"",""%%"":""%%""},""c8y_电流有效值"":{""%%"":""%%""},""c8y_漏电流有效值"":{""%%"":""%%""},""c8y_温度有效值"":{""%%"":{""%%"":""%%"",""%%"":""%%"",""%%"":""%%"",""%%"":""%%""}}}}"
+
+10,206,PUT,/inventory/managedObjects/%%,application/json,,%%,UNSIGNED STRING NUMBER STRING NUMBER STRING NUMBER STRING NUMBER,"{""DeadZone"":{""%%"":%%,""%%"":%%,""%%"":%%,""%%"":%%}}"
+
+10,270,GET,/identity/globalIds/%%/externalIds,,,%%,STRING,
+
+10,271,GET,/inventory/managedObjects/%%,,,%%,UNSIGNED,
+
+10,300,PUT,/inventory/managedObjects/%%,application/json,application/json,%%,UNSIGNED NUMBER NUMBER,"{""c8y_Position"":{""lat"":%%,""lng"":%%}}"
+
+10,400,PUT,/inventory/managedObjects/%%,application/json,,%%,STRING UNSIGNED,"{""c8y_RequiredAvailability"":{""responseInterval"":%%}}"
+
+10,401,POST,/measurement/measurements,application/json,,%%,NOW UNSIGNED NUMBER,"{""time"":""%%"",""source"":{""id"":""%%""},""type"":""c8y_CPUMeasurement"",""c8y_CPUMeasurement"":{""Workload"":{""value"":%%,""unit"":""%""}}}"
+
+10,450,PUT,/inventory/managedObjects/%%,application/json,application/json,%%,UNSIGNED STRING,"{""SSA_TIME"":{""time"":""%%""}}"
+
+11,500,$.managedObject,,$.id
+11,501,,$.c8y_IsDevice,$.id
+11,502,,$.c8y_Restart,$.id,$.deviceId
+11,503,,$.c8y_Relay,$.id,$.deviceId,$.c8y_Relay.relayState
+11,504,$.externalIds,,$.externalId
+11,505,$.Calibration,,$.相位校准,$.温度校准,$.漏电流校准,$.电压校准,$.电流校准
+11,506,$.Threshold,,$.c8y_电压有效值.欠压阈值,$.c8y_电压有效值.过压阈值,$.c8y_漏电流有效值.漏电流报警阈值,$.c8y_电流有效值.过流阈值,$.c8y_温度有效值.温度报警阈值.T1,$.c8y_温度有效值.温度报警阈值.T2,$.c8y_温度有效值.温度报警阈值.T3,$.c8y_温度有效值.温度报警阈值.T4
+11,507,$.DeadZone,,$.电流死区,$.温度死区,$.漏电流死区,$.电压死区
+11,600,,$.c8y_SetCommand,$.id,$.deviceId,$.c8y_SetCommand.text
+11,601,,$.c8y_DTUCommand,$.id,$.deviceId,$.c8y_DTUCommand.text
