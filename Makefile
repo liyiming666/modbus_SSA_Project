@@ -1,19 +1,20 @@
-TEST_MODIFY:=1
+TEST_MODIFY:=0
 
 BUILD:=debug
 
-C8Y_LIB_PATH=../cumulocity-sdk-c
+#C8Y_LIB_PATH=../cumulocity-sdk-c
+C8Y_LIB_PATH=/home/wenhan/work/cumulocity-sdk-c
 
 SRC_DIR:=src
 BUILD_DIR:=build
 BIN_DIR:=bin
 
-SRC:=$(wildcard $(SRC_DIR)/*.cc) $(wildcard $(SRC_DIR)/module/*.cc)
-OBJ:=$(addprefix $(BUILD_DIR)/, $(SRC:.cc=.o))
+SRC:=$(wildcard $(SRC_DIR)/*.cpp) $(wildcard $(SRC_DIR)/module/*.cpp)
+OBJ:=$(addprefix $(BUILD_DIR)/, $(SRC:.cpp=.o))
 ifeq ($(TEST_MODIFY), 1)
 BIN:=ssa_agent_test
 else
-BIN:=ssagent
+BIN:=ssagent_hsjd
 endif
 
 CPPFLAGS+=-Iinclude -Iinclude/modbus \
@@ -28,7 +29,7 @@ ifeq ($(BUILD), release)
 CPPFLAGS+=-DNDEBUG
 CFLAGS+=-O2
 CXXFLAGS+=-O2
-LDFLAGS+=-O2 -s
+LDFLAGS+=-O2
 else
 #CPPFLAGS+=-DDEBUG
 CFLAGS+=-O0 -g
@@ -49,7 +50,7 @@ $(BIN_DIR)/$(BIN): $(OBJ)
 	@echo "(LD) $@"
 	@$(CXX) $(LDFLAGS) $^ $(LDLIBS) -o $@
 
-$(BUILD_DIR)/%.o: %.cc
+$(BUILD_DIR)/%.o: %.cpp
 	@mkdir -p $(dir $@)
 	@echo "(CXX) $@"
 	@$(CXX) $(CPPFLAGS) $(CXXFLAGS) $< -c -o $@

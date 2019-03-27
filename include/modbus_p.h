@@ -32,6 +32,7 @@ public:
 
 public:
 //        std::string parseMsg();
+        string getSid();
 
         int parseCO();
         int parseDI();

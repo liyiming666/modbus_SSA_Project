@@ -11,6 +11,7 @@
 #include "sragent.h"
 #include "srnethttp.h"
 #include "util.h"
+#include "client_session.h"
 
 class AgentMsgHandler : public SrMsgHandler {
 public:
@@ -24,6 +25,11 @@ public:
 public:
         virtual void operator()(SrRecord &r, SrAgent &agent);
 
+        void setValue(string sid, SrRecord& r, pair<string, struct MbDevices> mbd);
+
+	SrNetHttp* getHttp(){
+		return _http;
+	}
 private:
         SrAgent& _agent;
         SrNetHttp* _http;

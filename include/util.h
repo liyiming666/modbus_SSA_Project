@@ -10,6 +10,9 @@
 
 #include "sragent.h"
 #include <string>
+#include <string.h>
+#include <iomanip>
+#include <math.h>
 
 #include "define.h"
 using namespace std;
@@ -51,5 +54,21 @@ string getHexString(u8* s, const u32& len);
 int bat(int d, int& sb, int& nb, string& is_signed);
 
 u16 unbat(u16 old, int& sb, int& nb, int& value);
+	
+
+
+unsigned int getbitu(const unsigned char *buff, int pos, int len);
+
+float HexToFloat(const unsigned char *buf);
+
+double HexToDouble(const unsigned char* buf);
+
+double calcFactor(float a);
+
+/* 获取毫秒级时间 */
+long getMilliseconds();
+
+/* 计算浮点型需要保留的小数位，返回一个string型的数据 */
+string floatReserve(const double& f, const int& point);
 
 #endif /* UTIL_H_ */

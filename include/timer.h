@@ -10,6 +10,8 @@
 
 #include <string>
 #include <time.h>
+#include <iostream>
+using namespace std;
 
 class Timer;
 

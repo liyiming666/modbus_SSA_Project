@@ -12,14 +12,13 @@ killProgress() {
     fi
 }
 
-PROCESS_NAME="ssa_agent_test"
+PROCESS_NAME="ssagent_hsjd"
 killProgress $PROCESS_NAME      # call funtion to kill agent progress
 
 export LD_LIBRARY_PATH=../cumulocity-sdk-c/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=../lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
-./bin/ssa_agent_test
-#./bin/srwatchdogd ./bin/ssa_agent_test 100 > log/ssa.log 2>&1 &
-#./bin/srwatchdogd ./bin/dtu_agent 100 > $LOG_DIR/dtu.log 2>&1 &
-#./bin/srwatchdogd ./bin/dtu_agent 100 2>&1 &
+#./bin/ssagent_hsjd
+#./bin/srwatchdogd ./bin/ssagent_hsjd 100 > log/ssa.log 2>&1 &
+./bin/srwatchdogd ./bin/ssagent_hsjd 100 > log/dtu.log 2>&1 &

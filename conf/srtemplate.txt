@@ -1,4 +1,4 @@
-modbus_ssagent_21
+modbus_ssagent_40
 10,107,PUT,/inventory/managedObjects/%%,application/json,application/json,%%,STRING,"{}"
 10,132,POST,/inventory/managedObjects/%%/childDevices,application/json,,%%,UNSIGNED UNSIGNED,"{""managedObject"":{""id"":""%%""}}"
 10,133,POST,/inventory/managedObjects,application/json,application/json,%%,STRING STRING,"{""name"":""%%"",""type"":""%%"",""c8y_IsDevice"":{}}"
@@ -68,7 +68,7 @@ modbus_ssagent_21
 11,837,,$.c8y_SoftwareList,$.id
 11,814,$.c8y_SoftwareList,,$.name,$.version,$.url
 11,815,,$.c8y_SoftwareList,$.id,$.status,$.deviceId
-11,816,,$.c8y_ModbusDevice,$.c8y_ModbusDevice.ipAddress,$.c8y_ModbusDevice.address,$.c8y_ModbusDevice.id,$.c8y_ModbusDevice.type,$.deviceId,$.id
+11,816,,$.c8y_ModbusDevice,$.c8y_ModbusDevice.ipAddress,$.c8y_ModbusDevice.address,$.c8y_ModbusDevice.id,$.c8y_ModbusDevice.type,$.deviceId,$c8y_ModbusDevice.name,$.id
 11,817,,$.c8y_ModbusConfiguration,$.id,$.c8y_ModbusConfiguration.pollingRate,$.c8y_ModbusConfiguration.transmitRate,$.deviceId
 11,852,,$.c8y_Network,$.deliveryType,$.deviceId
 11,818,,$.deviceId,$.id,$.c8y_Network.c8y_WAN.apn,$.c8y_Network.c8y_WAN.username,$.c8y_Network.c8y_WAN.password,$.c8y_Network.c8y_WAN.authType
@@ -76,18 +76,18 @@ modbus_ssagent_21
 11,820,,$.deviceId,$.id,$.c8y_Network.c8y_DHCP.addressRange.start,$.c8y_Network.c8y_DHCP.addressRange.end,$.c8y_Network.c8y_DHCP.dns1,$.c8y_Network.c8y_DHCP.dns2,$.c8y_Network.c8y_DHCP.domainName,$.c8y_Network.c8y_DHCP.enabled
 11,839,,$.c8y_Coils,$.id
 11,821,$.c8y_Coils,,$.number,$.input
-11,822,$.c8y_Coils,$.alarmMapping,$.number,$.alarmMapping.raiseAlarmTemplate,$.input
+11,822,$.c8y_Coils,$.alarmMapping,$.number,$.alarmMapping.raiseAlarmTemplate,$.input,$.alarmMapping.AlarmCondition
 11,823,$.c8y_Coils,$.measurementMapping,$.number,$.measurementMapping.sendMeasurementTemplate,$.input
-11,824,$.c8y_Coils,$.eventMapping,$.number,$.eventMapping.eventTemplate,$.input
+11,824,$.c8y_Coils,$.eventMapping,$.number,$.eventMapping.eventTemplate,$.input,$.eventMapping.EventCondition
 11,840,,$.c8y_Registers,$.id
-11,825,$.c8y_Registers,,$.number,$.startBit,$.noBits,$.multiplier,$.divisor,$.decimalPlaces,$.input,$.signed
+11,825,$.c8y_Registers,,$.number,$.startBit,$.noBits,$.multiplier,$.divisor,$.decimalPlaces,$.input,$.signed,$._is_float_type,$.weight,$.bias,$.point,$.analyticalType
 11,826,$.c8y_Registers,$.alarmMapping,$.number,$.startBit,$.alarmMapping.raiseAlarmTemplate,$.input
-11,827,$.c8y_Registers,$.measurementMapping,$.number,$.startBit,$.measurementMapping.sendMeasurementTemplate,$.input
+11,827,$.c8y_Registers,$.measurementMapping,$.number,$.startBit,$.measurementMapping.sendMeasurementTemplate,$.input,$.measurementMapping.is_forward
 11,828,$.c8y_Registers,$.eventMapping,$.number,$.startBit,$.eventMapping.eventTemplate,$.input
 11,829,,$.c8y_useServerTime,$.c8y_useServerTime
 11,830,$.c8y_Coils,$.statusMapping,$.number,$.statusMapping.status,$.input
 11,831,$.c8y_Registers,$.statusMapping,$.number,$.startBit,$.statusMapping.status,$.input
-11,832,$.references,,$.managedObject.c8y_ModbusDevice.ipAddress,$.managedObject.c8y_ModbusDevice.address,$.managedObject.id,$.managedObject.c8y_ModbusDevice.type
+11,832,$.references,,$.managedObject.c8y_ModbusDevice.ipAddress,$.managedObject.c8y_ModbusDevice.address,$.managedObject.id,$.managedObject.c8y_ModbusDevice.type,$.managedObject.name
 11,833,,$.c8y_SetCoil,$.id,$.deviceId,$.c8y_SetCoil.coil,$.c8y_SetCoil.value
 11,834,,$.c8y_SetRegister,$.id,$.deviceId,$.c8y_SetRegister.register,$.c8y_SetRegister.startBit,$.c8y_SetRegister.noBits,$.c8y_SetRegister.value
 11,835,alarms,$.c8y_ModbusSource,$.id,$.source.id,$.c8y_ModbusSource.coil.number,$.c8y_ModbusSource.coil.input
@@ -102,8 +102,8 @@ modbus_ssagent_21
 11,844,,$.url,$.id,$.type
 11,845,,$.c8y_Firmware,$.id,$.c8y_Firmware.version,$.c8y_Firmware.url,$.c8y_Firmware.name,$.deviceId
 11,846,,$.c8y_MeasurementPollFrequencyOperation,$.id,$.c8y_MeasurementPollFrequencyOperation.duration,$.c8y_MeasurementPollFrequencyOperation.frequency,$.deviceId
-11,847,,$.c8y_ModbusDevice,$.c8y_ModbusDevice.protocol,$.c8y_ModbusDevice.address,$.c8y_ModbusDevice.id,$.c8y_ModbusDevice.type,$.deviceId,$.id
-11,848,$.references,,$.managedObject.c8y_ModbusDevice.protocol,$.managedObject.c8y_ModbusDevice.address,$.managedObject.id,$.managedObject.c8y_ModbusDevice.type
+11,847,,$.c8y_ModbusDevice,$.c8y_ModbusDevice.protocol,$.c8y_ModbusDevice.address,$.c8y_ModbusDevice.id,$.c8y_ModbusDevice.type,$.deviceId,$.c8y_ModbusDevice.name,$.id
+11,848,$.references,,$.managedObject.c8y_ModbusDevice.protocol,$.managedObject.c8y_ModbusDevice.address,$.managedObject.id,$.managedObject.c8y_ModbusDevice.type,$.managedObject.name
 11,849,,$.c8y_SerialConfiguration,$.id,$.c8y_SerialConfiguration.baudRate,$.c8y_SerialConfiguration.dataBits,$.c8y_SerialConfiguration.parity,$.c8y_SerialConfiguration.stopBits,$.deviceId
 11,850,,$.c8y_UploadRDB,$.id,$.deviceId
 11,851,$.alarms,,$.id,$.type,$.source.id

@@ -1,44 +1,90 @@
-从平台获取数据，agent根据此轮询设备，发送报文，经测试发送的请求报文正确.
+<link rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/vs.css">  
+<script src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>  
+<script>  
+hljs.tabReplace = ' ';  
+hljs.initHighlightingOnLoad();  
+</script>  
 
-加入长连接实时支持在线添加modbus子设备；发送tcp、rtu请求，接收响应；解析方法 
+# SSA
+ServerSide Agent
 
-处理modbus异步请求、接收响应策略；加入上传数据
+## Introduction  
+* Overview:  
+This is a tcp-based application layer protocol, which is user-defined. The client contains a registration package to identify the distinguishing device. The packet contains three parts: the header (including the identifier, version number, and uplink and downlink data identifier), the data part, and the crc16 check digit.
 
-增加modbus tcp\rtu采集全功能。改进采集值的上传策略。
+## Directorys  
+* bin:  Binary executable file  
+* build:  Target file  
+* conf:  Configuration files  
+* include:  Header files  
+* src:  Source files  
+* test:  Unit test files  
+* Makefile:  Compile script  
+* run.sh:  Execution script
 
-增加心跳包解析；增加设备属性的更新； 
+## Prerequisites  
+* c++11
+* linux >= 2.6.32
+* libcurl >= 7.26.0
+* libboost >= 1.58.0
+* gcc >= 4.7
 
-.增加写线圈和写寄存器 
+## Usage:
+* Download the automated deployment script:  
+```  
+        git clone http://219.143.218.236:8082/build.sh/build.sh.git  
+```  
+* Execute:  This script will automatically pull and compile the SDK and SSA source code.
+```  
+        ./build.sh clean && ./build.sh
+```  
+* Configure your credential:  
+    Credential file in the BQAQ/conf directory.Modify the contents as the following:  
+```  
+        <tenant>
+        <username>
+        <password>
+    such as:
+        test
+        test_device
+        hello@123
+```  
+* Execution:  
+```  
+        cd BQAQ
+        ./bin/run.sh
+```
 
-增加异常处理策略；增加支持平台设置每个dtu的modbus轮询时间 
+## Configuration file description:
 
-.增加错误处理和对多个寄存器的处理 
+### You can manually configure the following items
+* server:  Which tenant (domain or ip address) you want to connect to?  
+* device_id:  Root device unique identifier.
+* credential_path:  credential file.
+* timer:  Set timer, client heartbeat timeout.
+* template_dir:  Smartrest1.0 file.
+* port:  SSA listening tcp port.
+* interval:  Root device online time.
 
-.更改对多个模板一起发送的处理 
-
-.增加批量请求设备数据 
-
-.增加线圈的解析数据，组合模板的部分 
-
-.增加其他三个模型的解析数据，组合模板的部分 
-
-.增加处理tm.size的异常情况
-
-.修改设备重新连接后，名字出现乱码的现象 
-
-增加DTU的modbus参数保存策略
-
-修复读取不同点位导致死循环的问题；修改报警上报；修改因数的计算
-
-.增加保持寄存器按位设置的功能
-
-.调整处理保持寄存器按位设置功能的逻辑，能够处理正确操作 
-
-.修改factor的算法
-
-.增加由于设备与slave断开，导致超时等原因的报警
-
-.更改处理负数的功能，增加轮讯错误和设置的值不存在的报警
-
-_带点的是我写的部分
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

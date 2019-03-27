@@ -57,7 +57,7 @@ public:
         }
 
 public:
-        boost::mutex _mutex;
+        std::mutex _mutex;
 };
 
 #endif /* MAP_H_ */

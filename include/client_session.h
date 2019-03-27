@@ -16,6 +16,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include <mutex>
+#include <thread>
 #include <pthread.h>
 #include <string>
 #include <srnethttp.h>
@@ -63,10 +64,10 @@ public:
 
         /* Get current DTU's did */
         string& did() { return _did; }
-	
-	std::mutex& getMutex() { return _read_mutex; }
 
-	boost::asio::io_service& ioService() { return _io_service; }
+        std::mutex& getMutex() { return _mutex; }
+
+        //boost::asio::io_service& ioService() { return _io_service; }
 
         /* Set heartbeat timing */
         inline void setTimer() {
@@ -76,9 +77,19 @@ public:
                                                  shared_from_this(),
                                                  boost::asio::placeholders::error));
         }
+	/* Set slavetimeout timing */
+	inline void setTimer_1(){
+		_deadline_timer.expires_from_now(boost::posix_time::seconds(5));
+		_deadline_timer.async_wait(boost::bind(&ClientSession::checkSalveDeadline,
+						 shared_from_this(),
+						 boost::asio::placeholders::error));
+	}
 
         /* Detect heartbeat */
         void checkDeadline(const boost::system::error_code& error);
+	
+	/* Detect slavetimeout*/
+	void checkSalveDeadline(const boost::system::error_code& error);
 
         /* Save DTU device's socket-info in this session */
         void setClientInfo() {
@@ -94,8 +105,11 @@ public:
         }
 
         /* Close socket and clear all global structures */
-        void Close(Map<string, ClientSession*>& did_to_cs);
+        //void Close(Map<string, ClientSession*>& did_to_cs);
 
+        void toClose();
+        void Close();
+        //
         void init();
 
         /* 异步读取数据 */
@@ -103,6 +117,9 @@ public:
 
         /* Register to read the asynchronous event of the registration package */
         void readReg(const unsigned long& len);
+
+        /* Process modbus's data. */
+        void process();
 
         /* Register an asynchronous event that sends data */
         void write(u8* w_buf, const u32& len);
@@ -153,7 +170,9 @@ public:
         pthread_t _tid;         // thread id
 
         C8yModel* _c8y;         // communicate with platform
-        Timer _timer;           // thread's timer
+        Timer _timer;           // thread's timer  用于设置dtu的轮寻周期
+
+        MBTYPES _mbtypes;   
 
         MBDEVICES _mbdevices;   // Device model in modbus database
 
@@ -163,7 +182,7 @@ public:
           Differentiate according to different protocols.
         */
         Map<std::string, std::string> _tcp_slave_to_sid;
-        Map<std::string, std::string> _rtu_slave_to_sid;
+        Map<std::string, vector<std::string>> _rtu_slave_to_sid;
 
         Map<boost::thread::id, SrNetHttp*>& _https_pool;
 
@@ -171,38 +190,40 @@ public:
         std::string _current_type; // Currently processed model
         std::string _current_sid;  // Currently processed childDevice's sid
 
+	string _msg;
+	string _forward_msg;
 private:
         tcp::socket _sock;
-        boost::asio::io_service &_io_service;
+        //boost::asio::io_service &_io_service;
         string _c_ip;
         u16 _c_port;
         u8* _data;
         u8* _data_pos;
         string _opt_id;
 
-        u32 _conn_status;     // 0:connected;1:ready to disconnect;2:disconnected
-
         ModbusP* _modbus_p;
 
-        Bool _stopped;
+
         deadline_timer _deadline;
+	deadline_timer _deadline_timer;
+
         std::mutex _io_mutex;
-        std::mutex _mb_mutex;
-        std::mutex _read_mutex;
-        int _timer_count;
-        const int& _tms;
-
-        Bool _mb_flag;          // TRUE:allow write;  FALSE:allow read
-        Bool _poll_flag;        // TRUE:allow poll ;  FALSE:allow handle
-
-        u8 _read_num;
-        u8 _write_num;
+        std::mutex _mutex;
+	std::mutex _timeout_mutex;
 
         int _polling_rate;
-        int _transmit_rate;
 
-        Bool _read_flag;
-        Bool _write_flag;
+        bool _receHeartBeat;
+        const int& _tms;
+
+        boost::asio::io_service::strand _strand;
+
+	Bool _is_close;
+	int _count;	// 检查timer时，查到设备slave故障的次数
+	
+	int _flag;  //判断slave设备操作超时的标识，1代表操作超时  
+
+	Bool _is_disconnect;
 };
 
 #endif /* CLIENT_SESSION_H_ */

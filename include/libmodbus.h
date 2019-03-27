@@ -24,11 +24,8 @@ public:
         ~Modbus();
 
         int init(const string& mode,  const int& slave);
-
-        int readCo(const int& addr, const int& nb, u8* req);
-        int readDi(const int& addr, const int& nb, u8* req);
-        int readHr(const int& addr, const int& nb, u8* req);
-        int readIr(const int& addr, const int& nb, u8* req);
+	
+	int readBat(const int& addr, const int& nb, u8* req, int func_code);
 
         int writeCo(int num, int nb, u8* req);
  		int writeHr(int num, int nb, u8* req);
@@ -38,7 +35,9 @@ public:
         modbus_t* tcpMode();
 
 public:
-        void print(u8* req, const int& len) { SSADebug(getHexString(req, len)); }
+        void print(u8* req, const int& len) { 
+		SSADebug(getHexString(req, len)); 
+	}
 private:
         std::string _mode;
         int _slave;
